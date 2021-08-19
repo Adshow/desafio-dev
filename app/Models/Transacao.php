@@ -10,7 +10,7 @@ class Transacao extends Model
 
     protected $fillable = ['tipo', 'data', 'valor', 'cpf', 'cartao', 'hora', 'dono', 'loja'];
 
-    protected $timestamps = false;
+    public $timestamps = false;
 
     public function tipo()
     {

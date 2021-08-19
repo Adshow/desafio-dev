@@ -8,5 +8,5 @@ class Transacao extends Model
 {
     protected $table = 'tipo_transacao';
 
-    protected $timestamps = false;
+    public $timestamps = false;
 }

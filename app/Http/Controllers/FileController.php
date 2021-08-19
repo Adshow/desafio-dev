@@ -33,16 +33,17 @@ class FileController extends Controller
                 $transacao['hora']= $this->getInfo($line, 42, 6);
                 $transacao['dono']= trim($this->getInfo($line, 48, 14));
                 $transacao['loja']= trim($this->getInfo($line, 62, 19));
+
+                $this->TransacaoRepository->store($transacao);
                 
                 
-                
-                dd($line, $transacao);
             }
+            fclose($file_handle);
+            dd("ca");
         }
         catch(\Exception $e)
         {
-            dd($e);
-            return response($e->getMessage(), $e->getStatusCode());
+            return response()->json($e->getMessage(), 500);
         }
 
         
