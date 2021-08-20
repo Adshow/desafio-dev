@@ -3,6 +3,13 @@
 
 Desafio técnico.
 
+## Stack
+- PHP 7.4
+- Laravel 8
+- PostgreSQL
+- MySQL
+- Composer
+
 ## 1. Instalação
 
 Após clonar o projeto, use o Composer para instalar as dependências.
