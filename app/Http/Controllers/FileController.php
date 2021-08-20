@@ -39,7 +39,8 @@ class FileController extends Controller
                 
             }
             fclose($file_handle);
-            dd("ca");
+            
+            return $this->getOperacoes();
         }
         catch(\Exception $e)
         {
@@ -64,5 +65,38 @@ class FileController extends Controller
     function normalize($value)
     {
         return $value/100.00;
+    }
+
+    function getOperacoes()
+    {
+        try{
+            $lojas = $this->TransacaoRepository->getLojas();
+
+            $ret = array();
+            foreach($lojas as $key => $loja)
+            {
+                $ret[$key]['nome_loja'] = $loja->nome;
+                $operacoes = $this->TransacaoRepository->getOperacaoByLoja($loja->nome);
+                
+                $saldo = 0.0;
+                foreach($operacoes as $operacao)
+                {
+                    
+                    if($operacao->natureza == 'saida')
+                        $saldo -= floatval($operacao->valor);
+                    else
+                        $saldo += floatval($operacao->valor);
+                    
+                }
+
+                $ret[$key]['saldo'] = $saldo;
+            }
+
+            return $ret;
+        }
+        catch(\Exception $e)
+        {
+            return response()->json($e->getMessage(), 500);
+        }
     }
 }
